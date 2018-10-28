@@ -1,28 +1,28 @@
-import path from 'path'
+import path from "path"
 
 // Paths Aliases defined through tsconfig.json
-const typescriptWebpackPaths = require('./webpack.config.js')
+const typescriptWebpackPaths = require("./webpack.config.js")
 
 export default {
-  entry: path.join(__dirname, 'src', 'index.tsx'),
+  entry: path.join(__dirname, "src", "index.tsx"),
   getSiteData: () => ({
-    title: 'React Static',
+    title: "React Static",
   }),
   getRoutes: async () => {
     return [
       {
-        path: '/',
-        component: 'src/views/Home',
+        path: "/",
+        component: "src/views/Home",
       },
       {
         is404: true,
-        component: 'src/views/404',
+        component: "src/views/404",
       },
     ]
   },
   webpack: (config, { defaultLoaders }) => {
     // Add .ts and .tsx extension to resolver
-    config.resolve.extensions.push('.ts', '.tsx')
+    config.resolve.extensions.push(".ts", ".tsx")
 
     // Add TypeScript Path Mappings (from tsconfig via webpack.config.js)
     // to react-statics alias resolution
@@ -38,10 +38,10 @@ export default {
             exclude: defaultLoaders.jsLoader.exclude, // as std jsLoader exclude
             use: [
               {
-                loader: 'babel-loader',
+                loader: "babel-loader",
               },
               {
-                loader: 'ts-loader',
+                loader: "ts-loader",
                 options: {
                   transpileOnly: true,
                 },
