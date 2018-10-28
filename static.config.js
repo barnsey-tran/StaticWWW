@@ -1,42 +1,22 @@
-import axios from 'axios'
 import path from 'path'
 
 // Paths Aliases defined through tsconfig.json
-const typescriptWebpackPaths = require('./webpack.config.js')
+const typescriptWebpackPaths = require('webpack.config')
 
 export default {
   entry: path.join(__dirname, 'src', 'index.tsx'),
   getSiteData: () => ({
     title: 'React Static',
   }),
-  getRoutes: async () => {
-    const { data: posts } = await axios.get('https://jsonplaceholder.typicode.com/posts')
+  getRoutes: () => {
     return [
       {
         path: '/',
-        component: 'src/containers/Home',
-      },
-      {
-        path: '/about',
-        component: 'src/containers/About',
-      },
-      {
-        path: '/blog',
-        component: 'src/containers/Blog',
-        getData: () => ({
-          posts,
-        }),
-        children: posts.map(post => ({
-          path: `/post/${post.id}`,
-          component: 'src/containers/Post',
-          getData: () => ({
-            post,
-          }),
-        })),
+        component: 'src/views/Home',
       },
       {
         is404: true,
-        component: 'src/containers/404',
+        component: 'src/views/404',
       },
     ]
   },
