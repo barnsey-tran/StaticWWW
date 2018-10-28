@@ -1,14 +1,14 @@
 import path from 'path'
 
 // Paths Aliases defined through tsconfig.json
-const typescriptWebpackPaths = require('webpack.config')
+const typescriptWebpackPaths = require('./webpack.config.js')
 
 export default {
   entry: path.join(__dirname, 'src', 'index.tsx'),
   getSiteData: () => ({
     title: 'React Static',
   }),
-  getRoutes: () => {
+  getRoutes: async () => {
     return [
       {
         path: '/',
@@ -41,7 +41,7 @@ export default {
                 loader: 'babel-loader',
               },
               {
-                loader: require.resolve('ts-loader'),
+                loader: 'ts-loader',
                 options: {
                   transpileOnly: true,
                 },
